@@ -98,6 +98,8 @@ docker-machine create --driver google \
     --google-zone ${var.gcp_zone} \
     --google-service-account ${google_service_account.ci_worker.email} \
     --google-scopes https://www.googleapis.com/auth/cloud-platform \
+    --google-network ${var.network_interface} \
+    --google-subnetwork ${var.network_subnetwork} \
     --google-disk-type pd-ssd \
     --google-disk-size ${var.ci_worker_disk_size} \
     --google-tags ${var.ci_worker_instance_tags} \
@@ -128,6 +130,8 @@ sudo gitlab-runner register -n \
     --machine-machine-options "google-scopes=https://www.googleapis.com/auth/cloud-platform" \
     --machine-machine-options "google-disk-type=pd-ssd" \
     --machine-machine-options "google-disk-size=${var.ci_worker_disk_size}" \
+    --machine-machine-options "google-network=${var.network_interface} \
+    --machine-machine-options "google-subnetwork=${var.network_subnetwork} \
     --machine-machine-options "google-tags=${var.ci_worker_instance_tags}" \
     && true
 
