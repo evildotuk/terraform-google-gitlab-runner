@@ -17,7 +17,7 @@
 # Compute the runner name to use for registration in GitLab.  We provide a default based on the GCP project name but it
 # can be overridden if desired.
 locals {
-  ci_runner_gitlab_name_final = (var.ci_runner_gitlab_name != "" ? var.ci_runner_gitlab_name : "gcp-${var.gcp_project}" )
+  ci_runner_gitlab_name_final = (var.ci_runner_gitlab_name != "" ? var.ci_runner_gitlab_name : "gcp-${var.gcp_project}")
 }
 
 # Service account for the Gitlab CI runner.  It doesn't run builds but it spawns other instances that do.
@@ -73,7 +73,7 @@ resource "google_compute_instance" "ci_runner" {
   }
 
   network_interface {
-    network = var.network_interface
+    network    = var.network_interface
     subnetwork = var.network_subnetwork
     access_config {
       // Ephemeral IP
@@ -116,7 +116,7 @@ sudo gitlab-runner register -n \
     --url ${var.gitlab_url} \
     --registration-token ${var.ci_token} \
     --executor "docker+machine" \
-    --docker-image "alpine:latest" \
+    --docker-image "ubuntu:latest" \
     --tag-list "${var.ci_runner_gitlab_tags}" \
     --run-untagged="${var.ci_runner_gitlab_untagged}" \
     --docker-privileged=${var.docker_privileged} \
@@ -140,6 +140,6 @@ SCRIPT
 
   service_account {
     email  = google_service_account.ci_runner.email
-    scopes = ["cloud-platform"]
+    scopes = ["cloud-platform", "logging-write", "monitoring"]
   }
 }
