@@ -104,3 +104,9 @@ variable "network_interface" {
   default = "default"
   description = "(Required) Networks to attach to the instance. This can be specified multiple times. Structure is documented below."
 }
+
+variable "network_subnetwork" {
+  type = string
+  default = null
+  description = "(Optional) The name or self_link of the subnetwork to attach this interface to. The subnetwork must exist in the same region this instance will be created in. If network isn't provided it will be inferred from the subnetwork."
+}
