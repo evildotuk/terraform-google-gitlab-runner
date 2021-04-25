@@ -98,3 +98,9 @@ variable "docker_privileged" {
   default     = "false"
   description = "Give extended privileges to container."
 }
+
+variable "network_interface" {
+  type = string
+  default = "default"
+  description = "(Required) Networks to attach to the instance. This can be specified multiple times. Structure is documented below."
+}
