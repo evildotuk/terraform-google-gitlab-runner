@@ -100,7 +100,7 @@ docker-machine create --driver google \
     --google-scopes https://www.googleapis.com/auth/cloud-platform \
     --google-network ${var.network_interface} \
     --google-subnetwork ${var.network_subnetwork} \
-    --google-use-internal-ip-only \
+    --google-use-internal-ip \
     --google-disk-type pd-ssd \
     --google-disk-size ${var.ci_worker_disk_size} \
     --google-tags ${var.ci_worker_instance_tags} \
@@ -127,7 +127,7 @@ sudo gitlab-runner register -n \
     --machine-machine-options "google-project=${var.gcp_project}" \
     --machine-machine-options "google-machine-type=${var.ci_worker_instance_type}" \
     --machine-machine-options "google-zone=${var.gcp_zone}" \
-    --machine-machine-options "google-use-internal-ip-only" \
+    --machine-machine-options "google-use-internal-ip" \
     --machine-machine-options "google-service-account=${google_service_account.ci_worker.email}" \
     --machine-machine-options "google-scopes=https://www.googleapis.com/auth/cloud-platform" \
     --machine-machine-options "google-disk-type=pd-ssd" \
