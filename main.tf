@@ -127,7 +127,7 @@ sudo gitlab-runner register -n \
     --machine-machine-options "google-machine-image=ubuntu-os-cloud/global/images/family/ubuntu-1804-lts" \
     --machine-machine-name "${var.gcp_resource_prefix}-worker-%s" \
     --machine-machine-options "google-project=${var.gcp_project}" \
-    --machine-machine-options "google-machine-type=f1-micro" \
+    --machine-machine-options "google-machine-type=${var.ci_worker_instance_type}" \
     --machine-machine-options "google-zone=${var.gcp_zone}" \
     --machine-machine-options "google-use-internal-ip" \
     --machine-machine-options "google-service-account=${google_service_account.ci_worker.email}" \
