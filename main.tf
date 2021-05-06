@@ -88,7 +88,7 @@ curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/sc
 sudo yum install -y gitlab-runner
 
 echo "Installing docker machine."
-curl -L https://github.com/docker/machine/releases/download/v0.16.2/docker-machine-Linux-x86_64 -o /tmp/docker-machine
+curl -L https://gitlab-docker-machine-downloads.s3.amazonaws.com/master/docker-machine-Linux-x86_64 -o /tmp/docker-machine
 sudo install /tmp/docker-machine /usr/local/bin/docker-machine
 
 echo "Verifying docker-machine and generating SSH keys ahead of time."
@@ -118,10 +118,11 @@ sudo gitlab-runner register -n \
     --url ${var.gitlab_url} \
     --registration-token ${var.ci_token} \
     --executor "docker+machine" \
-    --docker-image "ubuntu:latest" \
+    --docker-image "docker:19.03.12" \
     --tag-list "${var.ci_runner_gitlab_tags}" \
     --run-untagged="${var.ci_runner_gitlab_untagged}" \
     --docker-privileged=${var.docker_privileged} \
+    --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
     --machine-idle-time ${var.ci_worker_idle_time} \
     --machine-machine-driver google \
     --machine-machine-options "google-machine-image=ubuntu-os-cloud/global/images/family/ubuntu-1804-lts" \
